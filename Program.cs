@@ -117,9 +117,13 @@ namespace BARCPack
                 sqarc_out.Position = total_off;
                 sqarc_out.Write(e, 0, e.Length);
 
-
-               
-                var Pad = new byte[0x20];
+                var padsize = 0;
+                while (((total_off + e.Length + padsize)  % 32) > 0 )
+                {
+                    padsize++;
+                }
+                padsize += 32;
+                var Pad = new byte[padsize];
                 sqarc_out.Write(Pad, 0, Pad.Length);
 
 
